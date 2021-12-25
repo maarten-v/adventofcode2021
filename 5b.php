@@ -12,10 +12,12 @@ foreach ($input as $line) {
     [$xend, $yend] = explode(',', $end);
     if ($ystart === $yend && $xstart !== $xend) {
         draw($xstart, $xend, $ystart, 'X');
-    }
-    if ($ystart !== $yend && $xstart === $xend) {
+    } elseif ($ystart !== $yend && $xstart === $xend) {
         draw($ystart, $yend, $xstart, 'Y');
+    } else {
+        drawDiagonal($xstart, $xend, $ystart, $yend);
     }
+
 }
 
 function draw($startVar, $endVar, $fixed, $varType) {
@@ -43,6 +45,27 @@ function draw($startVar, $endVar, $fixed, $varType) {
         }
         if ($i > ${'max' . $varType}) {
             ${'max' . $varType} = $i;
+        }
+    }
+}
+
+function drawDiagonal($xstart, $xend, $ystart, $yend) {
+    global $grid;
+    $length = abs($xend - $xstart);
+    for ($i = 0; $i <= $length; $i++) {
+        if (!isset($grid[$xstart][$ystart])) {
+            $grid[$xstart][$ystart] = 0;
+        }
+        $grid[$xstart][$ystart]++;
+        if ($xend > $xstart) {
+            $xstart++;
+        } else {
+            $xstart--;
+        }
+        if ($yend > $ystart) {
+            $ystart++;
+        } else {
+            $ystart--;
         }
     }
 }
