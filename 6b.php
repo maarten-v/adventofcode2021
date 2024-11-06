@@ -10,7 +10,7 @@ $cache = [];
 foreach ($fishes as $fish) {
     $currentFishes = [$fish];
     $currentFishTotal = 0;
-    $numberOfRemovedFishes = 0;
+    $fishesAreRemoved = false;
     for ($day = 1; $day <= $totalDays; $day++) {
         $fishesCount = count($currentFishes);
         $daysToGo = $totalDays - $day;
@@ -25,7 +25,7 @@ foreach ($fishes as $fish) {
             $currentFish = $currentFishes[$fishCounter];
             if (isset($cache[$currentFish][$daysToGo + 1])) {
                 $currentFishTotal += $cache[$currentFish][$daysToGo + 1];
-                $numberOfRemovedFishes++;
+                $fishesAreRemoved = true;
                 $fishesToUnset[] = $fishCounter;
                 continue;
             }
@@ -39,10 +39,11 @@ foreach ($fishes as $fish) {
         foreach($fishesToUnset as $fishToUnset) {
             unset($currentFishes[$fishToUnset]);
         }
-        if (!isset($cache[$fish][$day]) && $numberOfRemovedFishes === 0) {
+        if ($fishesAreRemoved) {
+            $currentFishes = array_values($currentFishes);
+        } elseif (!isset($cache[$fish][$day])) {
             $cache[$fish][$day] = count($currentFishes);
         }
-        $currentFishes = array_values($currentFishes);
     }
     $total += $currentFishTotal + count($currentFishes);
 }
