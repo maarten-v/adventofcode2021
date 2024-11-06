@@ -15,8 +15,8 @@ foreach ($fishes as $fish) {
         $fishesCount = count($currentFishes);
         $daysToGo = $totalDays - $day;
         if ($fishesCount === 0) {
-            if (!isset($cache[$fish][$day]) && $daysToGo === 0) {
-                $cache[$fish][$day] = $currentFishTotal + count($currentFishes);
+            if (!isset($cache[$fish][$day])) {
+                $cache[$fish][$totalDays] = $currentFishTotal + count($currentFishes);
             }
             continue;
         }
