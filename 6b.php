@@ -33,7 +33,7 @@ foreach ($fishes as $fish) {
                 $currentFishes[] = 8;
                 $currentFishes[$fishCounter] = 6;
             } else {
-                $currentFishes[$fishCounter] = $currentFish - 1;
+                $currentFishes[$fishCounter]--;
             }
         }
         foreach($fishesToUnset as $fishToUnset) {
