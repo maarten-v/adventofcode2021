@@ -18,7 +18,7 @@ foreach ($fishes as $fish) {
             if (!isset($cache[$fish][$day])) {
                 $cache[$fish][$totalDays] = $currentFishTotal + count($currentFishes);
             }
-            continue;
+            break;
         }
         $fishesToUnset = [];
         for ($fishCounter = 0; $fishCounter < $fishesCount; $fishCounter++) {
