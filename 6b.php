@@ -8,9 +8,10 @@ $total = 0;
 $totalDays = 256;
 $totals = [0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0];
 $nextStep = [0 => [6, 8], 1 => [0], 2 => [1], 3 => [2], 4 => [3], 5 => [4], 6 => [5], 7 => [6], 8 => [7]];
+$maxFish = max($fishes);
 for ($days = 2; $days <= $totalDays; $days *= 2) {
     for ($fish = 0; $fish <= 8; $fish++) {
-        if ($days === $totalDays && $fish > max($fishes)) {
+        if ($days === $totalDays && $fish > $maxFish) {
             continue;
         }
         $newArray = [];
