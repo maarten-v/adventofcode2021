@@ -22,9 +22,13 @@ for ($days = 2; $days <= $totalDays; $days *= 2) {
                 array_push($newArray, ...$nextStep[$currentFish]);
             }
         }
-        $newNextStepArray[$fish] = $newArray;
+        if ($days !== $totalDays) {
+            $newNextStepArray[$fish] = $newArray;
+        }
     }
-    $nextStep = $newNextStepArray;
+    if ($days !== $totalDays) {
+        $nextStep = $newNextStepArray;
+    }
 }
 foreach ($fishes as $fish) {
     $total += $totals[$fish];
