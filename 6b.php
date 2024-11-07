@@ -26,9 +26,10 @@ for ($days = 2; $days <= $totalDays; $days *= 2) {
             $newNextStepArray[$fish] = $newArray;
         }
     }
-    if ($days !== $totalDays) {
-        $nextStep = $newNextStepArray;
+    if ($days === $totalDays) {
+        continue;
     }
+    $nextStep = $newNextStepArray;
 }
 foreach ($fishes as $fish) {
     $total += $totals[$fish];
