@@ -22,9 +22,10 @@ for ($days = 2; $days <= $totalDays; $days *= 2) {
                 array_push($newArray, ...$nextStep[$currentFish]);
             }
         }
-        if ($days !== $totalDays) {
-            $newNextStepArray[$fish] = $newArray;
+        if ($days === $totalDays) {
+            continue;
         }
+        $newNextStepArray[$fish] = $newArray;
     }
     if ($days === $totalDays) {
         continue;
