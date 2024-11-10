@@ -5,7 +5,7 @@ $fishes = explode(',', $input[0]);
 
 $total = 0;
 $totalDays = 256;
-$totals = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+$totals = array_fill(0, 9, 0);
 $nextStep = [[6, 8], [0], [1], [2], [3], [4], [5], [6], [7]];
 $maxFish = max($fishes);
 $lastDay = false;

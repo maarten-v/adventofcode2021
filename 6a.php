@@ -1,22 +1,33 @@
 <?php
-
-$input = file('testinput6.txt');
-//echo $input[0] . "\n";
+$startTime = microtime(true);
+$input = file('input6.txt');
 $fishes = explode( ',', $input[0]);
-
-for ($i = 1; $i <= 80; $i++) {
-    $newFishes = [];
-    array_walk($fishes, function (&$fish) {
-        global $newFishes;
-        if ($fish === 0) {
-            $newFishes[] = 8;
-            $fish = 6;
-            return;
+$cache = [];
+$total = 0;
+foreach ($fishes as $fish) {
+    if (isset($cache[$fish])) {
+        $total += $cache[$fish];
+        continue;
+    }
+    $fishesForDay = [$fish];
+    for ($day = 1; $day <= 80; $day++) {
+        $newFishes = [];
+        $countFishesForDay = count($fishesForDay);
+        for ($fishForDay = 0; $fishForDay < $countFishesForDay; $fishForDay++) {
+            if ($fishesForDay[$fishForDay] === 0) {
+                $newFishes[] = 8;
+                $fishesForDay[$fishForDay] = 6;
+                continue;
+            }
+            $fishesForDay[$fishForDay]--;
         }
-        $fish--;
-    });
-    $fishes = [...$fishes, ...$newFishes];
-    //echo implode(',', $fishes) . "\n";
+        array_push($fishesForDay, ...$newFishes);
+    }
+    $cache[$fish] = count($fishesForDay);
+    $total += $cache[$fish];
 }
 
-echo 'total: ' . count($fishes);
+echo 'total: ' . $total . PHP_EOL;
+$endTime = microtime(true);
+$executionTime = ($endTime - $startTime) * 1000;
+echo "Execution time: " . round($executionTime, 2) . " ms" . PHP_EOL;
